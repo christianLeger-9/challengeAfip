@@ -26,19 +26,16 @@ Los mismos se encuentran configurados en el archivo "application.yml"
 - qa
 
 
-
-End-Points:
-
-
-
-
 Aclaraciones: 
 
+- En el enpoint crearUsuario del controlador UsuarioController al momento de ingresar los datos desde swagger o postman la coleccion de cuentas
+debera estar vacia.
 
+- Se creo un controlador de Logs para poder ver las operaciones que se van realizando en el sistema.
 
-En cada uno de los test, hay dos respuestas, cuando el resultado es ok(codigo 200) o cuando hay algun problema
+- En cada uno de los test, hay dos respuestas, cuando el resultado es ok(codigo 200) o cuando hay algun problema
 se puede elegir la que se desee para forzar error en el test.
 
-Se puede utilizar swagger para probar los endpoint con la siguiente url una vez levantado el proyecto, 
+- Se puede utilizar swagger para probar los endpoint con la siguiente url una vez levantado el proyecto, 
 http://localhost:8080/monedas/swagger-ui.html#/
 
