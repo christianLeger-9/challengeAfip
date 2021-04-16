@@ -81,6 +81,7 @@ public class CompraVentaController {
 					//evaluo si la moneda origen esta en alguna de las cajas del usuario.
 					if(caja.getMoneda().equals(datos.getMonedaOrigen())) {
 						if(caja.getMonto() >= datos.getMonto()) {
+							ok = true;
 							//evaluo si el usuario tiene alguna caja con la moneda destino.
 							Caja cajaDestino = poseeCajaConMonedaDestino(datos.getMonedaDestino());
 							//busco las cotizaciones del dia y guardo el valor de cada uno de los que vienen como parametro.
@@ -89,14 +90,10 @@ public class CompraVentaController {
 					    	Double valorCotiDestino = buscarDestino(coti, datos.getMonedaDestino());
 					    	valorFinal = (datos.getMonto() * valorCotiDestino) / valorCotiOrigen;
 					    	
-					    	//Le tengo que restar el saldo a la caja origen y el valorFinal agregarlo a la caja destino.
-					    	caja.setMonto(caja.getMonto()-datos.getMonto());
-					    	cajaDestino.setMonto(cajaDestino.getMonto()+valorFinal);
-					    	cajaService.saveCaja(caja);
-					    	cajaService.saveCaja(cajaDestino);
-					    	ok = true;
+					    	modificarCajaOrigenYDestino(valorFinal,datos.getMonto(),cajaDestino,caja);
+					    	
 					    	logService.saveLog(datos.getIdUsuario(), ip, new Date(), Constants.LOG_ACCION_EXITO, Constants.LOG_SUBSISTEMA, 
-								"Cambio de moneda " +datos.getMonedaOrigen()+ " a " +datos.getMonedaDestino()+ "por el monto" + datos.getMonto(), request.getLocalName());
+								"Cambio de moneda " + datos.getMonedaOrigen()+ " a " + datos.getMonedaDestino() + "por el monto" + datos.getMonto(), request.getLocalName());
 						} else {
 							throw new Exception("Usted no posee el monto seleccionado para realizar la operación");
 						}
@@ -115,6 +112,14 @@ public class CompraVentaController {
 		return new ResponseEntity<>(valorFinal, HttpStatus.OK);
 	}
 	
+	private void modificarCajaOrigenYDestino(Double valorFinal, Double monto, Caja cajaDestino, Caja cajaOrigen) {
+		//Le tengo que restar el saldo a la caja origen y el valorFinal agregarlo a la caja destino.
+		cajaOrigen.setMonto(cajaOrigen.getMonto() - monto);
+    	cajaDestino.setMonto(cajaDestino.getMonto()+valorFinal);
+    	cajaService.saveCaja(cajaOrigen);
+    	cajaService.saveCaja(cajaDestino);
+	}
+
 	private Caja poseeCajaConMonedaDestino(String monedaDestino) throws Exception {
 		Iterable<Caja> cajaDestino = cajaService.findByMoneda(monedaDestino);
 		Iterator<Caja> cajaMonedaDestino = cajaDestino.iterator();
