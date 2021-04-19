@@ -57,7 +57,7 @@ public class CuentaApplicationTests {
         datos.setCaja(cajas);
         
 		ResponseEntity<Cuenta> responseEntity = (ResponseEntity<Cuenta>) cuentaController.abrirCuenta(datos);
-//		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.OK.value());
+//		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.CREATED.value());
 		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.BAD_REQUEST.value());
 	}
 }

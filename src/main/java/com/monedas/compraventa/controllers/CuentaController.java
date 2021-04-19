@@ -49,7 +49,7 @@ public class CuentaController {
 		catch( Exception e) { 
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body((e.getMessage()));
 		 }
-		return new ResponseEntity<>(cu, HttpStatus.OK);
+		return new ResponseEntity<>(cu, HttpStatus.CREATED);
 	}
 	
 	private boolean validarCbu(int cbu) throws Exception {

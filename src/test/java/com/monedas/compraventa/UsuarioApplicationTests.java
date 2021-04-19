@@ -52,8 +52,7 @@ public class UsuarioApplicationTests {
         datos.setApellido("Leger");
         datos.setCuentas(new ArrayList<Cuenta>());
 		ResponseEntity<Usuario> responseEntity = (ResponseEntity<Usuario>) usuarioController.crearUsuario(datos, request);
-		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.OK.value());
-//		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.BAD_REQUEST.value());
+		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.CREATED.value());
 	}
 	
 	@SuppressWarnings("unchecked")
