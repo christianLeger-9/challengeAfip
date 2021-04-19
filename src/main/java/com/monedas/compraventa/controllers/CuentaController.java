@@ -53,9 +53,10 @@ public class CuentaController {
 	}
 	
 	private boolean validarCbu(int cbu) throws Exception {
+		//busco el cbu ingresado para saber si ya hay una cuenta .
 		Iterable<Cuenta> cuentaCbu = cuentaService.findByCbu(cbu);
 		Iterator<Cuenta> cuentasCbu = cuentaCbu.iterator();
-		if(!cuentasCbu.hasNext()) {
+		if(cuentasCbu.hasNext()) {
 			throw new Exception("El cbu ya existe");
 		} else {
 			return true;

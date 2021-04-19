@@ -28,7 +28,7 @@ public class SwaggerConfig {
     }
 	
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("Titulo Swagger").description("Descripción del swagger.").version("V1.0").build();
+		return new ApiInfoBuilder().title("Challenge Compra-Venta monedas").description("Descripción del swagger.").version("V1.0").build();
 	}
 
 	private Predicate<String> getPaths() {

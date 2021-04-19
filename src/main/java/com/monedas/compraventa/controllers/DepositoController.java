@@ -30,7 +30,7 @@ public class DepositoController {
 	@Autowired
 	LogService logService;
 	
-	@RequestMapping(value="/", method=RequestMethod.POST)
+	@RequestMapping(value="/", method=RequestMethod.PUT)
 	//agrega la cantidad de pesos enviada por parametro a la cuenta enviada por parametro, validando que exista la cuenta
 	public ResponseEntity<?> depositar(@RequestBody Deposito deposito, HttpServletRequest request) {
 		Iterable<Cuenta> cu = null;

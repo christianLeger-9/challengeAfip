@@ -45,6 +45,11 @@ public class CajaController {
 			if(!cuentasCbu.hasNext()) {
 				throw new Exception("El cbu no existe ");
 			} else {
+				Iterable<Caja> cajaMoneda = cajaService.findByMoneda(caja.getMoneda());
+				Iterator<Caja> cajasMoneda = cajaMoneda.iterator();
+				if(cajasMoneda.hasNext()) {
+					throw new Exception("El cbu ya posee una cuenta en " + caja.getMoneda());
+				}
 				Cuenta c = cuentasCbu.next();
 				c.getCaja().add(caja);
 				cuentaService.saveCuenta(c);

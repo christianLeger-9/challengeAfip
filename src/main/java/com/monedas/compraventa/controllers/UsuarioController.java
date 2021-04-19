@@ -1,6 +1,7 @@
 package com.monedas.compraventa.controllers;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +35,8 @@ public class UsuarioController {
 	public ResponseEntity<?> crearUsuario(@RequestBody Usuario usuario, HttpServletRequest request) {
 		Usuario usu = new Usuario();
 		try {
-			//el array de cuentas de usuario, cuando este se crea, se crea como array vacio ya que hay otro enpoint en el cual se crea una cuenta a un uisuario existente.
+			//el array de cuentas de usuario, cuando este se crea, se crea como array vacio ya que hay otro enpoint
+			//en el cual se crea una cuenta a un usuario existente.
 			usuario.setCuentas(new ArrayList<Cuenta>());
 			usu = usuarioService.saveUser(usuario);
 		} catch( Exception e) { 
@@ -51,8 +53,12 @@ public class UsuarioController {
 			Optional<Usuario> usu = usuarioService.findById(idUsuario);
 			if (usu.isPresent()) {
 				cu = cuentaService.findByIdUsuario(idUsuario);
+				Iterator<Cuenta> cuentas = cu.iterator();
+				if (!cuentas.hasNext()) {
+					throw new Exception("El idUsuario aún no posee cuentas.");
+				}
 			} else {
-				throw new Exception("El idUsuario no existe en la Base de Datos");
+				throw new Exception("El idUsuario no existe en la Base de Datos.");
 			}
 		}
 		catch( Exception e) { 
