@@ -40,6 +40,7 @@ public class UsuarioApplicationTests {
 	void contextLoads() {
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	void testCrearUsuario() throws Exception { 
 		MockHttpServletRequest request = new MockHttpServletRequest();
@@ -50,18 +51,17 @@ public class UsuarioApplicationTests {
         datos.setDni("33713210");
         datos.setApellido("Leger");
         datos.setCuentas(new ArrayList<Cuenta>());
-		@SuppressWarnings("unchecked")
 		ResponseEntity<Usuario> responseEntity = (ResponseEntity<Usuario>) usuarioController.crearUsuario(datos, request);
 		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.OK.value());
 //		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.BAD_REQUEST.value());
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	void testCuentasUsuario() throws Exception { 
 		MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
         Long idUsuarioABuscar = new Long(1);
-		@SuppressWarnings("unchecked")
 		ResponseEntity<Object> responseEntity = (ResponseEntity<Object>) usuarioController.cuentasUsuario(idUsuarioABuscar);
 //		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.OK.value());
 		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.BAD_REQUEST.value());

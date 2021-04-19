@@ -34,6 +34,7 @@ public class DepositoApplicationTests {
 	void contextLoads() {
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	void testDepositar() throws Exception { 
 		MockHttpServletRequest request = new MockHttpServletRequest();
@@ -41,7 +42,6 @@ public class DepositoApplicationTests {
         Deposito datos = new Deposito();
         datos.setCbu(1234);
         datos.setPesos(110.50);
-		@SuppressWarnings("unchecked")
 		ResponseEntity<Cuenta> responseEntity = (ResponseEntity<Cuenta>) depositoController.depositar(datos, request);
 //		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.OK.value());
 		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.BAD_REQUEST.value());

@@ -37,6 +37,7 @@ public class CuentaApplicationTests {
 	void contextLoads() {
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	void testAbrirCuenta() throws Exception { 
 		MockHttpServletRequest request = new MockHttpServletRequest();
@@ -55,7 +56,6 @@ public class CuentaApplicationTests {
         cajas.add(caja);
         datos.setCaja(cajas);
         
-		@SuppressWarnings("unchecked")
 		ResponseEntity<Cuenta> responseEntity = (ResponseEntity<Cuenta>) cuentaController.abrirCuenta(datos);
 //		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.OK.value());
 		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.BAD_REQUEST.value());

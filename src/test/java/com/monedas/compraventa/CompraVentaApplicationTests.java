@@ -36,6 +36,7 @@ class CompraVentaApplicationTests {
 	void contextLoads() {
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	void testExchange() throws Exception { 
 		MockHttpServletRequest request = new MockHttpServletRequest();
@@ -45,7 +46,6 @@ class CompraVentaApplicationTests {
         datos.setMonedaDestino("USD");
         datos.setMonedaOrigen("ARS");
         datos.setMonto(10000.0);
-		@SuppressWarnings("unchecked")
 		ResponseEntity<Double> responseEntity = (ResponseEntity<Double>) compraVentaController.exchange(datos, request);
 //		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.OK.value());
 		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.BAD_REQUEST.value());

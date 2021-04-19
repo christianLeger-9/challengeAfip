@@ -38,6 +38,7 @@ public class CajaApplicationTests {
 	void contextLoads() {
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	void testAgregarCajaACuenta() throws Exception { 
 		MockHttpServletRequest request = new MockHttpServletRequest();
@@ -49,7 +50,6 @@ public class CajaApplicationTests {
         datos.setTipoCaja("Ahorro");
         
         int cbu = 12345;
-		@SuppressWarnings("unchecked")
 		ResponseEntity<Cuenta> responseEntity = (ResponseEntity<Cuenta>) cajaController.agregarCajaACuenta(datos, cbu, request);
 //		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.OK.value());
 		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.BAD_REQUEST.value());
