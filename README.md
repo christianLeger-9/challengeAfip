@@ -28,7 +28,7 @@ Los mismos se encuentran configurados en el archivo "application.yml"
 
 Aclaraciones: 
 
-- En el enpoint crearUsuario del controlador UsuarioController al momento de ingresar los datos desde swagger o postman la coleccion de cuentas
+- En el enpoint crear del controlador ClienteController al momento de ingresar los datos desde swagger o postman la coleccion de cuentas
 debera estar vacia.
 
 - Se creo un controlador de Logs para poder ver las operaciones que se van realizando en el sistema.
