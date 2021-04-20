@@ -2,7 +2,7 @@
 
 Descargando el repositorio:
 
--git clone git@github.com:christianLeger-9/compraVenta.git
+-git clone https://github.com/christianLeger-9/challengeAfip
 
 
 Para ejecutar la aplicacion utilizando Maven desde STS:
