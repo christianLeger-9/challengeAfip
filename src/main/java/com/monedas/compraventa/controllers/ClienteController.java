@@ -16,29 +16,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.monedas.compraventa.entity.Cuenta;
-import com.monedas.compraventa.entity.Usuario;
+import com.monedas.compraventa.entity.Cliente;
 import com.monedas.compraventa.service.CuentaService;
-import com.monedas.compraventa.service.UsuarioService;
+import com.monedas.compraventa.service.ClienteService;
 
 @RestController
-@RequestMapping("/usuarios")
-public class UsuarioController {
+@RequestMapping("/clientes")
+public class ClienteController {
 
 	@Autowired
-	UsuarioService usuarioService;
+	ClienteService clienteService;
 	
 	@Autowired
 	CuentaService cuentaService;
 	
 	@RequestMapping(value="/", method=RequestMethod.POST)
 	//agrega una nueva cuenta cargada previamente
-	public ResponseEntity<?> crearUsuario(@RequestBody Usuario usuario, HttpServletRequest request) {
-		Usuario usu = new Usuario();
+	public ResponseEntity<?> crear(@RequestBody Cliente usuario, HttpServletRequest request) {
+		Cliente usu = new Cliente();
 		try {
 			//el array de cuentas de usuario, cuando este se crea, se crea como array vacio ya que hay otro enpoint
 			//en el cual se crea una cuenta a un usuario existente.
 			usuario.setCuentas(new ArrayList<Cuenta>());
-			usu = usuarioService.saveUser(usuario);
+			usu = clienteService.saveUser(usuario);
 		} catch( Exception e) { 
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body((e.getMessage()));
 		}
@@ -47,10 +47,10 @@ public class UsuarioController {
 	
 	@RequestMapping(value="/{idUsuario}", method=RequestMethod.GET)
 	//busca las cuentas asociadas al usuario, validando que exista
-	public ResponseEntity<?> cuentasUsuario(@PathVariable(required=true,value="idUsuario")Long idUsuario) {
+	public ResponseEntity<?> cuentas(@PathVariable(required=true,value="idUsuario")Long idUsuario) {
 		Iterable<Cuenta> cu = null;
 		try {
-			Optional<Usuario> usu = usuarioService.findById(idUsuario);
+			Optional<Cliente> usu = clienteService.findById(idUsuario);
 			if (usu.isPresent()) {
 				cu = cuentaService.findByIdUsuario(idUsuario);
 				Iterator<Cuenta> cuentas = cu.iterator();

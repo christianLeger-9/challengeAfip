@@ -14,18 +14,19 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.monedas.compraventa.controllers.UsuarioController;
+import com.monedas.compraventa.controllers.ClienteController;
+import com.monedas.compraventa.entity.Cliente;
 import com.monedas.compraventa.entity.Cuenta;
-import com.monedas.compraventa.entity.Usuario;
+import com.monedas.compraventa.service.ClienteService;
 import com.monedas.compraventa.service.CuentaService;
 import com.monedas.compraventa.service.LogService;
-import com.monedas.compraventa.service.UsuarioService;
+
 
 @SpringBootTest
-public class UsuarioApplicationTests {
+public class ClienteApplicationTests {
 
 	@InjectMocks
-	private UsuarioController usuarioController;
+	private ClienteController usuarioController;
 	
 	@Mock
 	private CuentaService cuentaService;
@@ -34,7 +35,7 @@ public class UsuarioApplicationTests {
 	private LogService logService;
 	
 	@Mock
-	private UsuarioService usuarioService;
+	private ClienteService clienteService;
 
 	@Test
 	void contextLoads() {
@@ -45,13 +46,13 @@ public class UsuarioApplicationTests {
 	void testCrearUsuario() throws Exception { 
 		MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        Usuario datos = new Usuario();
+        Cliente datos = new Cliente();
         datos.setId(new Long(1));
         datos.setNombre("Christian");
         datos.setDni("33713210");
         datos.setApellido("Leger");
         datos.setCuentas(new ArrayList<Cuenta>());
-		ResponseEntity<Usuario> responseEntity = (ResponseEntity<Usuario>) usuarioController.crearUsuario(datos, request);
+		ResponseEntity<Cliente> responseEntity = (ResponseEntity<Cliente>) usuarioController.crear(datos, request);
 		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.CREATED.value());
 	}
 	
@@ -61,7 +62,7 @@ public class UsuarioApplicationTests {
 		MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
         Long idUsuarioABuscar = new Long(1);
-		ResponseEntity<Object> responseEntity = (ResponseEntity<Object>) usuarioController.cuentasUsuario(idUsuarioABuscar);
+		ResponseEntity<Object> responseEntity = (ResponseEntity<Object>) usuarioController.cuentas(idUsuarioABuscar);
 //		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.OK.value());
 		assertTrue(responseEntity.getStatusCodeValue() == HttpStatus.BAD_REQUEST.value());
 	}

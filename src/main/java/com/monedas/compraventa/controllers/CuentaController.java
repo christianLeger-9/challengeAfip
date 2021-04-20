@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.monedas.compraventa.entity.Cuenta;
-import com.monedas.compraventa.entity.Usuario;
-import com.monedas.compraventa.repository.UsuarioRepository;
+import com.monedas.compraventa.entity.Cliente;
+import com.monedas.compraventa.repository.ClienteRepository;
 import com.monedas.compraventa.service.CuentaService;
 import com.monedas.compraventa.service.LogService;
 
 @RestController
-@RequestMapping("/cuentaController")
+@RequestMapping("/cuentas")
 public class CuentaController {
 	
 	@Autowired
 	CuentaService cuentaService;
 	
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	ClienteRepository usuarioRepository;
 	
 	@Autowired
 	LogService logService;
@@ -35,7 +35,7 @@ public class CuentaController {
 	public ResponseEntity<?> abrirCuenta(@RequestBody Cuenta cuenta) {
 		Cuenta cu = null;
 		try {
-			Optional<Usuario> usu = usuarioRepository.findById(cuenta.getIdUsuario());
+			Optional<Cliente> usu = usuarioRepository.findById(cuenta.getIdUsuario());
 			if (usu.isPresent()) {
 				//valido que el cbu no exista
 				boolean ok = validarCbu(cuenta.getCbu());

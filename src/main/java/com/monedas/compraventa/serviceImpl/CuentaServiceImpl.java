@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.monedas.compraventa.entity.Cuenta;
 import com.monedas.compraventa.repository.CuentaRepository;
-import com.monedas.compraventa.repository.UsuarioRepository;
+import com.monedas.compraventa.repository.ClienteRepository;
 import com.monedas.compraventa.service.CuentaService;
 
 @Service
@@ -17,7 +17,7 @@ public class CuentaServiceImpl implements CuentaService {
 	CuentaRepository cuentaRepository;
 	
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	ClienteRepository usuarioRepository;
 	
 	public Cuenta saveCuenta(Cuenta cuenta) {
 		return cuentaRepository.save(cuenta);

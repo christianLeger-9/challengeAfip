@@ -1,46 +1,87 @@
 package com.monedas.compraventa.entity;
 
-import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.*;
 
 import com.sun.istack.NotNull;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.HashSet;
+import java.util.Set;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@Table(name="usuario")
-public class Usuario implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-	private Long id;
-	
-	@NotNull
-	@Column(name="dni")
-	private String dni;
-	
-	@NotNull
-	@Column(name="nombre")
-	private String nombre;
-	
-	@NotNull
-	@Column(name="apellido")
-	private String apellido;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "USUARIO_CUENTA", joinColumns = {
-			@JoinColumn(name = "USUARIO_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "CUENTA_ID") })
-	private List<Cuenta> cuentas;
+    private int id;
+    @NotNull
+    private String nombre;
+    @NotNull
+    @Column(unique = true)
+    private String nombreUsuario;
+    @NotNull
+    private String email;
+    @NotNull
+    private String password;
+    @NotNull
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"),
+    inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private Set<Rol> roles = new HashSet<>();
+
+    public Usuario() {
+    }
+
+    public Usuario(@NotNull String nombre, @NotNull String nombreUsuario, @NotNull String email, @NotNull String password) {
+        this.nombre = nombre;
+        this.nombreUsuario = nombreUsuario;
+        this.email = email;
+        this.password = password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
+    }
 }

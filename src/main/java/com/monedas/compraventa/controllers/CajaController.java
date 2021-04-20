@@ -22,7 +22,7 @@ import com.monedas.compraventa.service.CuentaService;
 import com.monedas.compraventa.service.LogService;
 
 @RestController
-@RequestMapping("/cajaController")
+@RequestMapping("/cajas")
 public class CajaController {
 
 	@Autowired

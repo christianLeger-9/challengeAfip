@@ -21,10 +21,10 @@ import org.springframework.web.client.RestTemplate;
 import com.monedas.compraventa.constants.Constants;
 import com.monedas.compraventa.entity.Caja;
 import com.monedas.compraventa.entity.Cuenta;
-import com.monedas.compraventa.entity.Usuario;
+import com.monedas.compraventa.entity.Cliente;
 import com.monedas.compraventa.model.CotizacionResponse;
 import com.monedas.compraventa.model.DatosExchange;
-import com.monedas.compraventa.repository.UsuarioRepository;
+import com.monedas.compraventa.repository.ClienteRepository;
 import com.monedas.compraventa.service.CajaService;
 import com.monedas.compraventa.service.CuentaService;
 import com.monedas.compraventa.service.LogService;
@@ -43,7 +43,7 @@ public class CompraVentaController {
 	LogService logService;
 	
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	ClienteRepository usuarioRepository;
 	
 	@Autowired
 	private RestTemplate restTemplate;
@@ -69,7 +69,7 @@ public class CompraVentaController {
 		try {
 			String ip = (request.getHeader("X-FORWARDED-FOR") == null) ? request.getRemoteAddr() : request.getHeader("X-FORWARDED-FOR");
 			//evaluo si existe el usuario que quiere hacer el cambio de moneda.
-			Optional<Usuario> usu = usuarioRepository.findById(datos.getIdUsuario());
+			Optional<Cliente> usu = usuarioRepository.findById(datos.getIdUsuario());
 			if (usu.isPresent()) {
 				//busco las cuentas asociadas a ese usuario y me quedo con las cajas.
 				cu = cuentaService.findByIdUsuario(datos.getIdUsuario());
